@@ -1,15 +1,14 @@
-const Reviews = require('../models/Reviews');
+const Review = require('../models/Reviews');
 
-exports.mostrarReviews = (req, res) => {
-  Reviews.findAll()
-    .then(reviews => res.render('reviews', {
-      pagina: 'Reseñas',
-      reviews: reviews
-    }))
-    .catch(error => console.log(error));
+exports.mostrarReviews = async (req, res) => {
+  const reviews = await Review.findAll();
+  res.render('reviews', {
+    pagina: 'Reseñas',
+    reviews: reviews
+  });
 };
 
-exports.agregarReview = (req, res) => {
+exports.agregarReview = async (req, res) => {
   // validar que todos los campos estén llenos
   const { nombre, email, mensaje } = req.body;
   const errores = [];
@@ -25,15 +24,18 @@ exports.agregarReview = (req, res) => {
   // revisar si existen errores
   if (errores.length > 0) {
     // muestra la vista con errores
+    const reviews = await Review.findAll();
     res.render('reviews', {
       errores,
       nombre,
       email,
-      mensaje
+      mensaje,
+      pagina: 'Reseñas',
+      reviews: reviews
     });
   } else {
     // almacenar los datos en la DB
-    Reviews.create({
+    Review.create({
       nombre,
       email,
       mensaje
