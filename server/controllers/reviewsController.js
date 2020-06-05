@@ -35,12 +35,11 @@ exports.agregarReview = async (req, res) => {
     });
   } else {
     // almacenar los datos en la DB
-    Review.create({
+    await Review.create({
       nombre,
       email,
       mensaje
-    })
-      .then(review => res.redirect('/reviews'))
-      .catch(error => console.log(error));
+    });
+    res.redirect('/reviews');
   }
 };
