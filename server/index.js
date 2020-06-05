@@ -45,9 +45,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', routes());
 
 // host y puerto para la app
-const host = process.env.HOST || '0.0.0.0';
-const port = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, host, () => {
-  console.log('El servidor está funcionando');
+app.listen(PORT, HOST, () => {
+  console.log(`El servidor está funcionando, puerto ${PORT} y host ${HOST}`);
 });
