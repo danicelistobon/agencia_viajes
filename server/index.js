@@ -1,9 +1,14 @@
-// importar express
+// importaciones
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const configs = require('./config');
+const db = require('./config/database');
+
+db.authenticate()
+  .then(() => console.log('DB conectada'))
+  .catch(error => console.log(error));
 
 // configurar express
 const app = express();
